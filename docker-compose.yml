@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+    app:
+    nginx:
+    db:
+        image: postgres:14.6
+        volumes:
+            - db:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB
+            - POSTGRES_USER
+            - POSTGRES_PASSWORD
+
+volumes:
+    db:
