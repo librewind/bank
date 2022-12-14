@@ -1,9 +1,29 @@
-version: '3.5'
+version: '3'
 
 services:
-    app:
-    nginx:
-    db:
+    bank-app:
+        container_name: bank-app
+        build:
+            context: .
+            dockerfile: docker/php/8.2/Dockerfile
+        image: bank-app
+        working_dir: '/var/www'
+        volumes:
+            - '.:/var/www'
+        expose:
+            - 9000
+        depends_on:
+            - bank-db
+    bank-nginx:
+        container_name: bank-nginx
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        image: bank-nginx
+        depends_on:
+            - bank-app
+    bank-db:
+        container_name: bank-db
         image: postgres:14.6
         volumes:
             - db:/var/lib/postgresql/data
