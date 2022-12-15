@@ -30,13 +30,13 @@ RUN docker-php-ext-enable opcache \
     && printf 'upload_max_filesize = "10M"\n' >> /usr/local/etc/php/conf.d/upload-files-php.ini \
     && printf 'memory_limit="256M"\n' >> /usr/local/etc/php/conf.d/z_memory.ini
 
-COPY . /var/www
-COPY --from=vendor /app/vendor/ /var/www/vendor
+COPY . /var/www/html
+COPY --from=vendor /app/vendor/ /var/www/html/vendor
 COPY --from=vendor /usr/bin/composer /usr/bin/composer
 
 FROM fpm-prod as fpm-dev
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 RUN apt-get update --allow-releaseinfo-change \
     && apt-get install -y --no-install-recommends git zip unzip \
