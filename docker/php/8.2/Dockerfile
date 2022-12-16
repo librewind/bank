@@ -49,4 +49,11 @@ RUN apt-get update --allow-releaseinfo-change \
        --no-interaction \
        --no-plugins \
        --no-scripts \
-       --prefer-dist
+       --prefer-dist \
+    && pecl install xdebug \
+        && docker-php-ext-enable xdebug \
+        && printf 'xdebug.mode=develop,debug\n' >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && printf 'xdebug.client_host="host.docker.internal"\n' >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && printf 'xdebug.start_upon_error=yes\n' >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && printf 'xdebug.start_with_request=yes\n' >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && printf 'xdebug.log_level=0' >> /usr/local/etc/php/conf.d/xdebug.ini

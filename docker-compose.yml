@@ -7,11 +7,13 @@ services:
             context: .
             dockerfile: docker/php/8.2/Dockerfile
         image: bank-app
+        environment:
+            PHP_IDE_CONFIG: "serverName=Docker"
         working_dir: '/var/www/html'
         volumes:
             - '.:/var/www/html'
         expose:
-            - 9000
+            - 9003
         depends_on:
             - bank-db
     bank-nginx:
