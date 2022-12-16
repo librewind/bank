@@ -17,12 +17,14 @@ RUN composer install \
 FROM php:8.2-fpm as fpm-prod
 
 RUN docker-php-ext-enable opcache \
-    && docker-php-ext-install sockets \
     && apt-get --allow-releaseinfo-change update \
     && apt-get install -y --no-install-recommends \
         libcurl4-openssl-dev \
         pkg-config \
         libssl-dev \
+        libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install sockets pgsql pdo_pgsql \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \

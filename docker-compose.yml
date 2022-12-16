@@ -27,6 +27,8 @@ services:
     bank-db:
         container_name: bank-db
         image: postgres:14.6
+        ports:
+            - "5432"
         volumes:
             - db:/var/lib/postgresql/data
         environment:
