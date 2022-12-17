@@ -5,7 +5,7 @@ services:
         container_name: bank-app
         build:
             context: .
-            dockerfile: docker/php/8.2/Dockerfile
+            dockerfile: docker/php/8.1/Dockerfile
         image: bank-app
         environment:
             PHP_IDE_CONFIG: "serverName=Docker"
